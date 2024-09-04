@@ -1,0 +1,33 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Grimoire.Pages.IngredientDictionaryPage">
+
+    <StackLayout Padding="10">
+        <!-- Header -->
+        <Label Text="Ingredients"
+               FontSize="24"
+               HorizontalOptions="Center"
+               Margin="0,10"/>
+
+        <!-- List of Ingredients -->
+        <CollectionView x:Name="IngredientsCollection"
+                        ItemsSource="{Binding Ingredients}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Margin="0,5">
+                        <Entry Text="{Binding Name}"
+                               HorizontalOptions="FillAndExpand"/>
+                        <Button Text="Delete"
+                                Clicked="OnDeleteIngredientClicked"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Button to Add New Ingredient -->
+        <Button Text="Add Ingredient"
+                Clicked="OnAddIngredientClicked"
+                HorizontalOptions="Center"
+                Margin="0,10"/>
+    </StackLayout>
+</ContentPage>

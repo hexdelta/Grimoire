@@ -1,0 +1,29 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Grimoire.Pages.ShoppingListPage"
+             Title="Shopping List">
+
+    <StackLayout Padding="10">
+        <!-- Header -->
+        <Label Text="Shopping List"
+               FontSize="24"
+               HorizontalOptions="Center"
+               Margin="0,10"/>
+
+        <!-- List of Combined Ingredients -->
+        <CollectionView x:Name="CombinedIngredientsCollection"
+                        ItemsSource="{Binding CombinedIngredients}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Name}" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Button to Clear Shopping List -->
+        <Button Text="Clear List"
+                Clicked="OnClearListClicked"
+                HorizontalOptions="Center"
+                Margin="0,10"/>
+    </StackLayout>
+</ContentPage>

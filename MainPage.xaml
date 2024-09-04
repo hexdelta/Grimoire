@@ -1,0 +1,60 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Grimoire.MainPage"
+             Title="Grimoire Recipes">
+
+    <StackLayout Padding="10">
+        <!-- header -->
+        <Label Text="Grimoire"
+               FontSize="24"
+               HorizontalOptions="Center"
+               Margin="0,10"/>
+
+        <!-- new recipe -->
+        <Button Text="Add New Recipe"
+                Clicked="OnAddRecipeClicked"
+                HorizontalOptions="Center"
+                Margin="0,10"/>
+
+        <!-- recipe list -->
+        <CollectionView x:Name="RecipeCollection"
+                        SelectionMode="Multiple"
+                        SelectionChanged="OnRecipeSelectionChanged">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="10"
+                           Margin="5"
+                           BorderColor="LightGray"
+                           CornerRadius="8">
+                        <StackLayout Orientation="Horizontal">
+                            <!-- recipe thumbnail -->
+                            <Image Source="{Binding Thumbnail}"
+                                   WidthRequest="50"
+                                   HeightRequest="50"
+                                   VerticalOptions="Center"/>
+
+                            <!-- recipe name -->
+                            <Label Text="{Binding Name}"
+                                   FontSize="18"
+                                   VerticalOptions="CenterAndExpand"
+                                   HorizontalOptions="StartAndExpand"
+                                   Margin="10,0"/>
+
+                            <!-- checkbox -->
+                            <CheckBox IsChecked="{Binding IsSelected}"
+                                      VerticalOptions="Center"
+                                      HorizontalOptions="End"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- shopping list -->
+        <Button Text="Generate Shopping List"
+                Clicked="OnGenerateShoppingListClicked"
+                IsEnabled="{Binding IsAnyRecipeSelected}"
+                HorizontalOptions="Center"
+                Margin="0,10"/>
+    </StackLayout>
+</ContentPage>
