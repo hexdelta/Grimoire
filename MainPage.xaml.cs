@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Maui.Controls;
 using Grimoire.Models;
+using Grimoire.Pages;
 
 namespace Grimoire
 {
@@ -27,6 +28,16 @@ namespace Grimoire
                     { "Recipe", newRecipe }
                 });
         }
+
+        private async void OnRecipeSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem is Recipe selectedRecipe)
+            {
+                await Navigation.PushAsync(new RecipeDetailPage(selectedRecipe));
+            }
+        }
+
+
 
         private void OnRecipeSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

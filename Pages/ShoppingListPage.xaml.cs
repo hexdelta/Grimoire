@@ -6,10 +6,11 @@ using System.Linq;
 namespace Grimoire.Pages
 {
     [QueryProperty(nameof(SelectedRecipes), "SelectedRecipes")]
+
     public partial class ShoppingListPage : ContentPage
     {
-        private IEnumerable<Recipe> _selectedRecipes;
-        public IEnumerable<Recipe> SelectedRecipes
+        private List<Recipe> _selectedRecipes;
+        public List<Recipe> SelectedRecipes
         {
             get => _selectedRecipes;
             set
@@ -32,13 +33,19 @@ namespace Grimoire.Pages
         private void CombineIngredients()
         {
             CombinedIngredients.Clear();
-            foreach (var recipe in SelectedRecipes)
+            if (SelectedRecipes != null)
             {
-                foreach (var ingredient in recipe.Ingredients)
+                foreach (var recipe in SelectedRecipes)
                 {
-                    if (!CombinedIngredients.Any(i => i.Name == ingredient.Name))
+                    if (recipe.Ingredients != null)
                     {
-                        CombinedIngredients.Add(ingredient);
+                        foreach (var ingredient in recipe.Ingredients)
+                        {
+                            if (!CombinedIngredients.Any(i => i.Name == ingredient.Name))
+                            {
+                                CombinedIngredients.Add(ingredient);
+                            }
+                        }
                     }
                 }
             }

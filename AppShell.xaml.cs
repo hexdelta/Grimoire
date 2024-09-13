@@ -1,4 +1,6 @@
-﻿namespace Grimoire
+﻿using Grimoire.Pages;
+
+namespace Grimoire
 {
     public partial class AppShell : Shell
     {

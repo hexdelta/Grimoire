@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:Grimoire" 
+       xmlns:pages="clr-namespace:Grimoire.Pages" 
        x:Class="Grimoire.AppShell">
 
-    <!-- Define the Flyout structure for navigation -->
-    <FlyoutItem Title="Recipes" Icon="icon_recipes.png">
-        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
-    </FlyoutItem>
 
-    <FlyoutItem Title="Ingredient Dictionary" Icon="icon_ingredients.png">
-        <ShellContent ContentTemplate="{DataTemplate local:IngredientDictionaryPage}" />
-    </FlyoutItem>
+    <ShellContent Title="Main" ContentTemplate="{DataTemplate local:MainPage}" />
+    <ShellContent Title="Ingredients" ContentTemplate="{DataTemplate pages:IngredientDictionaryPage}" />
 
-    <!-- Register Routes for Navigating to Pages -->
-    <ShellContent Route="RecipeDetailPage" ContentTemplate="{DataTemplate local:RecipeDetailPage}" />
-    <ShellContent Route="ShoppingListPage" ContentTemplate="{DataTemplate local:ShoppingListPage}" />
+    <ShellContent Route="RecipeDetailPage" ContentTemplate="{DataTemplate pages:RecipeDetailPage}" />
+    <ShellContent Route="ShoppingListPage" ContentTemplate="{DataTemplate pages:ShoppingListPage}" />
 </Shell>
