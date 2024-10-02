@@ -6,6 +6,8 @@
 
  Besides this basic functionality, there are plans to implement a 'multiplier' to the shopping list function. This allows the user to adjust recipe size based on their needs.
 
-Initial commit:
-Added a skeleton code, initial file structure as well as basic interactions between pages. Code still doesn't properly run - have to fix broken relationships between .xamls and code-behinds.
+INSTALLATION REQUIREMENTS:
+.NET 8.0 (https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
 
+HOW TO RUN:
+-will be added soon!-
