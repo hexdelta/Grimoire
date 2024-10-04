@@ -18,8 +18,8 @@
 
         <!-- recipe list -->
         <CollectionView x:Name="RecipeCollection"
-                        SelectionMode="Multiple"
-                        SelectionChanged="OnRecipeSelectionChanged">
+                        SelectionMode="Single"
+            SelectionChanged="OnRecipeTapped">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="10"
@@ -40,10 +40,11 @@
                                    HorizontalOptions="StartAndExpand"
                                    Margin="10,0"/>
 
-                            <!-- checkbox -->
+                            <!-- checkbox for selection -->
                             <CheckBox IsChecked="{Binding IsSelected}"
                                       VerticalOptions="Center"
-                                      HorizontalOptions="End"/>
+                                      HorizontalOptions="End"
+                                      CheckedChanged="OnRecipeSelectionChanged" />
                         </StackLayout>
                     </Frame>
                 </DataTemplate>
@@ -51,10 +52,11 @@
         </CollectionView>
 
         <!-- shopping list -->
-        <Button Text="Generate Shopping List"
+        <Button x:Name="GenerateShoppingListButton"
+                Text="Generate Shopping List"
                 Clicked="OnGenerateShoppingListClicked"
-                IsEnabled="{Binding IsAnyRecipeSelected}"
-                HorizontalOptions="Center"
+                IsEnabled="False"
+            HorizontalOptions="Center"
                 Margin="0,10"/>
     </StackLayout>
 </ContentPage>

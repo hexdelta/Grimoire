@@ -21,28 +21,27 @@ namespace Grimoire
             var newRecipe = new Recipe("New Recipe");
             Recipes.Add(newRecipe);
 
-            // Use Shell navigation to open the RecipeDetailPage
-            await Shell.Current.GoToAsync($"{nameof(RecipeDetailPage)}", true,
-                new Dictionary<string, object>
-                {
-                    { "Recipe", newRecipe }
-                });
+            // Navigate to the RecipeDetailPage to edit the new recipe
+            await Navigation.PushAsync(new RecipeDetailPage(newRecipe));
         }
 
-        private async void OnRecipeSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void OnRecipeTapped(object sender, SelectionChangedEventArgs e)
         {
-            if (e.SelectedItem is Recipe selectedRecipe)
+            // When a recipe is tapped, navigate to the detail page
+            if (e.CurrentSelection.FirstOrDefault() is Recipe selectedRecipe)
             {
                 await Navigation.PushAsync(new RecipeDetailPage(selectedRecipe));
+
+                // Reset the selection to avoid confusion
+                RecipeCollection.SelectedItem = null;
             }
         }
 
-
-
-        private void OnRecipeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnRecipeSelectionChanged(object sender, CheckedChangedEventArgs e)
         {
+            // Check if any recipes are selected and enable the shopping list button
             var isAnySelected = Recipes.Any(r => r.IsSelected);
-            ((Button)FindByName("GenerateShoppingListButton")).IsEnabled = isAnySelected;
+            GenerateShoppingListButton.IsEnabled = isAnySelected;
         }
 
         private async void OnGenerateShoppingListClicked(object sender, EventArgs e)
@@ -50,7 +49,7 @@ namespace Grimoire
             var selectedRecipes = Recipes.Where(r => r.IsSelected).ToList();
             if (selectedRecipes.Any())
             {
-                // Use Shell navigation to open the ShoppingListPage
+                // Navigate to ShoppingListPage
                 await Shell.Current.GoToAsync($"{nameof(ShoppingListPage)}", true,
                     new Dictionary<string, object>
                     {

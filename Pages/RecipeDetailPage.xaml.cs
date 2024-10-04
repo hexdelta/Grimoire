@@ -5,21 +5,16 @@ using Grimoire.Models;
 namespace Grimoire.Pages
 {
     public partial class RecipeDetailPage : ContentPage
-    {
+    { 
+
         private Recipe _recipe;
 
-        // Parameterless constructor for XAML instantiation
-        public RecipeDetailPage()
+        public RecipeDetailPage(Recipe recipe)
         {
             InitializeComponent();
-            _recipe = new Recipe(); // Initialize with a default Recipe
-            BindingContext = _recipe;
-        }
 
-        // Constructor with parameter for programmatic instantiation
-        public RecipeDetailPage(Recipe recipe) : this() // Calls the parameterless constructor
-        {
-            _recipe = recipe ?? new Recipe(); // Use provided recipe or create a new one
+            // Bind the passed recipe to the page
+            _recipe = recipe;
             BindingContext = _recipe;
         }
 
@@ -38,14 +33,7 @@ namespace Grimoire.Pages
 
         private async void OnSaveRecipeClicked(object sender, EventArgs e)
         {
-            if (Application.Current is App app)
-            {
-                if (!app.Recipes.Contains(_recipe))
-                {
-                    app.Recipes.Add(_recipe);
-                }
-            }
-
+            // Navigate back to the previous page (MainPage)
             await Navigation.PopAsync();
         }
 
