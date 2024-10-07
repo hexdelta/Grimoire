@@ -23,6 +23,12 @@ namespace Grimoire.Pages
             string newIngredientName = IngredientEntry.Text;
             if (!string.IsNullOrWhiteSpace(newIngredientName))
             {
+                if (_recipe.Ingredients.Any(i => i.Name.Equals(newIngredientName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    DisplayAlert("Error", "This ingredient is already in the list.", "OK");
+                    IngredientEntry.Text = string.Empty;
+                    return;
+                }
                 // Create a new Ingredient object and add it to the list
                 var newIngredient = new Ingredient { Name = newIngredientName };
                 _recipe.Ingredients.Add(newIngredient);
@@ -39,7 +45,10 @@ namespace Grimoire.Pages
 
         private void OnRemoveIngredientClicked(object sender, EventArgs e)
         {
-            // Ingredient removal logic, will do later
+            if (sender is Button button && button.CommandParameter is Ingredient ingredient)
+            {
+                _recipe.Ingredients.Remove(ingredient);
+            }
         }
     }
 }
