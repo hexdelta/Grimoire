@@ -21,15 +21,14 @@ namespace Grimoire.Pages
             }
         }
 
-        public ObservableCollection<Ingredient> CombinedIngredients { get; set; }
+        public ObservableCollection<string> CombinedIngredients { get; set; }
 
         public ShoppingListPage()
         {
             InitializeComponent();
-            CombinedIngredients = new ObservableCollection<Ingredient>();
+            CombinedIngredients = new ObservableCollection<string>();
             BindingContext = this;
         }
-
         private void CombineIngredients()
         {
             CombinedIngredients.Clear();
@@ -41,14 +40,21 @@ namespace Grimoire.Pages
                     {
                         foreach (var ingredient in recipe.Ingredients)
                         {
-                            if (!CombinedIngredients.Any(i => i.Name == ingredient.Name))
+                            string ingredientWithSource = $"{ingredient.Name} (from {recipe.Name})";
+
+                            if (!CombinedIngredients.Any(i => i == ingredientWithSource))
                             {
-                                CombinedIngredients.Add(ingredient);
+                                CombinedIngredients.Add(ingredientWithSource);
                             }
                         }
                     }
                 }
             }
+        }
+
+        private async void OnBackToMainPageClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
         }
 
         private void OnClearListClicked(object sender, EventArgs e)

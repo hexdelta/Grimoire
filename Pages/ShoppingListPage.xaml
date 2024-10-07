@@ -4,26 +4,30 @@
              Title="Shopping List">
 
     <StackLayout Padding="10">
-        <!-- Header -->
-        <Label Text="Shopping List"
-               FontSize="24"
-               HorizontalOptions="Center"
-               Margin="0,10"/>
+        <Label Text="YOUR SHOPPING LIST" FontSize="24" HorizontalOptions="Center" Margin="0,10"/>
 
-        <!-- List of Combined Ingredients -->
-        <CollectionView x:Name="CombinedIngredientsCollection"
-                        ItemsSource="{Binding CombinedIngredients}">
+        <CollectionView ItemsSource="{Binding CombinedIngredients}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Name}" />
+                    <Frame Padding="10" Margin="5" BorderColor="LightGray" CornerRadius="8">
+                        <StackLayout Orientation="Vertical">
+                            <!-- Ingredient and Recipe Source -->
+                            <Label Text="{Binding .}"
+                           FontSize="18"
+                           VerticalOptions="CenterAndExpand"/>
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Button to Clear Shopping List -->
-        <Button Text="Clear List"
-                Clicked="OnClearListClicked"
-                HorizontalOptions="Center"
-                Margin="0,10"/>
+        <Button Text="Back to Main Page"
+            Clicked="OnBackToMainPageClicked"
+            HorizontalOptions="Center"
+            Margin="10" />
+
+
+        <!-- Clear Shopping List Button -->
+        <Button Text="Clear List" Clicked="OnClearListClicked" HorizontalOptions="Center" Margin="0,10"/>
     </StackLayout>
 </ContentPage>
