@@ -33,13 +33,26 @@ namespace Grimoire.Pages
 
         private async void OnSaveRecipeClicked(object sender, EventArgs e)
         {
-            // Navigate back to the previous page (MainPage)
+            MessagingCenter.Send(this, "UpdateRecipe", _recipe);
+
             await Navigation.PopAsync();
         }
 
         private void OnRemoveIngredientClicked(object sender, EventArgs e)
         {
             // Ingredient removal logic, will do later
+        }
+
+        protected override async void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            // If Recipe was edited, ensure it updates the MainPage collection
+            if (BindingContext is Recipe updatedRecipe)
+            {
+                // Optional: Notify MainPage to refresh the data or manually update the list
+                MessagingCenter.Send(this, "UpdateRecipe", updatedRecipe);
+            }
         }
     }
 }

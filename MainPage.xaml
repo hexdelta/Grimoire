@@ -19,7 +19,7 @@
         <!-- recipe list -->
         <CollectionView x:Name="RecipeCollection"
                         SelectionMode="Single"
-            SelectionChanged="OnRecipeTapped">
+            SelectionChanged="OnRecipeSelected">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame Padding="10"
@@ -27,20 +27,17 @@
                            BorderColor="LightGray"
                            CornerRadius="8">
                         <StackLayout Orientation="Horizontal">
-                            <!-- recipe thumbnail -->
                             <Image Source="{Binding Thumbnail}"
                                    WidthRequest="50"
                                    HeightRequest="50"
                                    VerticalOptions="Center"/>
 
-                            <!-- recipe name -->
                             <Label Text="{Binding Name}"
                                    FontSize="18"
                                    VerticalOptions="CenterAndExpand"
                                    HorizontalOptions="StartAndExpand"
                                    Margin="10,0"/>
 
-                            <!-- checkbox for selection -->
                             <CheckBox IsChecked="{Binding IsSelected}"
                                       VerticalOptions="Center"
                                       HorizontalOptions="End"

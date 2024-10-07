@@ -1,10 +1,29 @@
-﻿namespace Grimoire.Models
-{
-    public class Ingredient
-    {
-        public string Name { get; set; }
+﻿using System.ComponentModel;
 
-        // Empty constructor for data binding and serialization
-        public Ingredient() { }
+namespace Grimoire.Models
+{
+    public class Ingredient : INotifyPropertyChanged
+    {
+        private string name;
+
+        public string Name
+        {
+            get => name;
+            set
+            {
+                if (name != value)
+                {
+                    name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -7,7 +7,7 @@
         <!-- Recipe Name -->
         <Entry x:Name="RecipeNameEntry"
                Placeholder="Recipe Name"
-               Text="{Binding Name}"
+               Text="{Binding Name, Mode=TwoWay}"
             FontSize="18"
                Margin="0,10"/>
 
