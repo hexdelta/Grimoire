@@ -14,32 +14,46 @@ namespace Grimoire
             InitializeComponent();
             Recipes = new ObservableCollection<Recipe>();
             RecipeCollection.ItemsSource = Recipes;
+
+            MessagingCenter.Subscribe<RecipeDetailPage, Recipe>(this, "UpdateRecipe", (sender, updatedRecipe) =>
+            {
+                // Find the existing recipe and update it
+                var existingRecipe = Recipes.FirstOrDefault(r => r == updatedRecipe);
+                if (existingRecipe != null)
+                {
+                    // Update properties (like name) if necessary
+                    existingRecipe.Name = updatedRecipe.Name;
+                    // Trigger collection change notification if needed
+                }
+            });
         }
 
         private async void OnAddRecipeClicked(object sender, EventArgs e)
         {
-            var newRecipe = new Recipe("New Recipe");
+            var newRecipe = new Recipe("New Recipe")
+            {
+                Thumbnail = "default_thumbnail.png",
+                IsSelected = false
+            };
             Recipes.Add(newRecipe);
 
-            // Navigate to the RecipeDetailPage to edit the new recipe
             await Navigation.PushAsync(new RecipeDetailPage(newRecipe));
         }
 
-        private async void OnRecipeTapped(object sender, SelectionChangedEventArgs e)
+
+        private async void OnRecipeSelected(object sender, SelectionChangedEventArgs e)
         {
-            // When a recipe is tapped, navigate to the detail page
+            RecipeCollection.SelectedItem = null;
+
             if (e.CurrentSelection.FirstOrDefault() is Recipe selectedRecipe)
             {
                 await Navigation.PushAsync(new RecipeDetailPage(selectedRecipe));
-
-                // Reset the selection to avoid confusion
-                RecipeCollection.SelectedItem = null;
             }
         }
 
+
         private void OnRecipeSelectionChanged(object sender, CheckedChangedEventArgs e)
         {
-            // Check if any recipes are selected and enable the shopping list button
             var isAnySelected = Recipes.Any(r => r.IsSelected);
             GenerateShoppingListButton.IsEnabled = isAnySelected;
         }
@@ -49,13 +63,13 @@ namespace Grimoire
             var selectedRecipes = Recipes.Where(r => r.IsSelected).ToList();
             if (selectedRecipes.Any())
             {
-                // Navigate to ShoppingListPage
                 await Shell.Current.GoToAsync($"{nameof(ShoppingListPage)}", true,
                     new Dictionary<string, object>
                     {
-                        { "SelectedRecipes", selectedRecipes }
+                { "SelectedRecipes", selectedRecipes }
                     });
             }
         }
+
     }
 }
