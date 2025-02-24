@@ -10,4 +10,4 @@ INSTALLATION REQUIREMENTS:
 .NET 8.0 (https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
 
 HOW TO RUN:
--will be added soon!-
+Run the Grimoire.exe file inside the main folder.
